@@ -1,4 +1,4 @@
-package com.wit.hillforts
+package org.wit.hillforts
 
 import org.junit.Test
 
