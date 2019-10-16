@@ -8,8 +8,15 @@ import kotlinx.android.synthetic.main.hillfort_card_xml.view.*
 import org.wit.hillforts.R
 import org.wit.hillforts.models.HillfortModel
 
-class HillfortsAdapter constructor(private var placemarks: List<HillfortModel>) :
-    RecyclerView.Adapter<HillfortsAdapter.MainHolder>() {
+interface HillfortListener {
+    fun onHillfortClick(placemark: HillfortModel)
+}
+
+class HillfortsAdapter constructor(
+    private var hillforts: List<HillfortModel>,
+    private val listener: HillfortListener
+): RecyclerView.Adapter<HillfortsAdapter.MainHolder>() {
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
         return MainHolder(
@@ -22,17 +29,18 @@ class HillfortsAdapter constructor(private var placemarks: List<HillfortModel>) 
     }
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
-        val placemark = placemarks[holder.adapterPosition]
-        holder.bind(placemark)
+        val hillfort = hillforts[holder.adapterPosition]
+        holder.bind(hillfort, listener)
     }
 
-    override fun getItemCount(): Int = placemarks.size
+    override fun getItemCount(): Int = hillforts.size
 
     class MainHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(placemark: HillfortModel) {
-            itemView.hillfortName.text = placemark.name
-            itemView.description.text = placemark.description
+        fun bind(hillfort: HillfortModel, listener: HillfortListener) {
+            itemView.hillfortName.text = hillfort.name
+            itemView.description.text = hillfort.description
+            itemView.setOnClickListener { listener.onHillfortClick(hillfort) }
         }
     }
 }
