@@ -23,23 +23,46 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
         toolbarAdd.title = title
         setSupportActionBar(toolbarAdd)
         info("Hillfort Activity started..")
+        var edit = false
 
         app = application as MainApp
+
+        if (intent.hasExtra("hillfort_edit")) {
+            edit = true
+            hillfort = intent.extras?.getParcelable<HillfortModel>("hillfort_edit")!!
+            hillfortName.setText(hillfort.name)
+            description.setText(hillfort.description)
+            btnAdd.setText(R.string.save_hillfort)
+        }
 
         btnAdd.setOnClickListener() {
             hillfort.name = hillfortName.text.toString()
             hillfort.description = description.text.toString()
             if (hillfort.name.isNotEmpty()) {
-                app.hillforts.add(hillfort.copy())
+                app.hillforts.create(hillfort.copy())
                 info("add Button Pressed: ${hillfort}")
-                for (i in app.hillforts.indices) {
-                    info("Placemark[$i]:${app.hillforts[i]}")
-                }
                 setResult(AppCompatActivity.RESULT_OK)
                 finish()
             } else {
                 toast("Please Enter a title")
             }
+        }
+
+        btnAdd.setOnClickListener() {
+            hillfort.name= hillfortName.text.toString()
+            hillfort.description = description.text.toString()
+            if (hillfort.name.isEmpty()) {
+                toast(R.string.enter_hillfort_name)
+            } else {
+                if (edit) {
+                    app.hillforts.update(hillfort.copy())
+                } else {
+                    app.hillforts.create(hillfort.copy())
+                }
+            }
+            info("add Button Pressed: $hillfortName")
+            setResult(AppCompatActivity.RESULT_OK)
+            finish()
         }
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
