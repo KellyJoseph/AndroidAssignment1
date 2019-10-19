@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.hillfort_card_xml.view.*
 import org.wit.hillforts.R
+import org.wit.hillforts.helpers.readImageFromPath
 import org.wit.hillforts.models.HillfortModel
 
 interface HillfortListener {
@@ -40,6 +41,7 @@ class HillfortsAdapter constructor(
         fun bind(hillfort: HillfortModel, listener: HillfortListener) {
             itemView.hillfortName.text = hillfort.name
             itemView.description.text = hillfort.description
+            itemView.imageIcon.setImageBitmap(readImageFromPath(itemView.context, hillfort.image))
             itemView.setOnClickListener { listener.onHillfortClick(hillfort) }
         }
     }

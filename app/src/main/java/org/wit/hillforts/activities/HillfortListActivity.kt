@@ -17,6 +17,7 @@ import org.wit.hillforts.models.HillfortModel
 class HillfortListActivity: AppCompatActivity(), HillfortListener {
 
     lateinit var app: MainApp
+    val IMAGE_REQUEST = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,12 +47,10 @@ class HillfortListActivity: AppCompatActivity(), HillfortListener {
         return super.onOptionsItemSelected(item)
     }
 
+
     override fun onHillfortClick(hillfort: HillfortModel) {
         startActivityForResult(intentFor<HillfortActivity>().putExtra("hillfort_edit", hillfort), 0)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        recyclerView.adapter?.notifyDataSetChanged()
-        super.onActivityResult(requestCode, resultCode, data)
-    }
+
 }
