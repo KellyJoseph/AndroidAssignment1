@@ -93,6 +93,11 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
             R.id.item_cancel -> {
                 finish()
             }
+            R.id.item_delete -> {
+                toast ("Delete button was pressed ${hillfort.id}")
+                app.hillforts.delete(hillfort)
+                finish()
+            }
         }
         return super.onOptionsItemSelected(item)
     }

@@ -27,8 +27,10 @@ class HillfortListActivity: AppCompatActivity(), HillfortListener {
         //as specifies an alias for an import or a type cast
         app = application as MainApp
 
+
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
+        loadHillforts()
         //recyclerView.adapter = HillfortsAdapter(app.hillforts)
         //recyclerView.adapter = HillfortsAdapter(app.hillforts.findAll())
         recyclerView.adapter = HillfortsAdapter(app.hillforts.findAll(), this)
@@ -62,9 +64,15 @@ class HillfortListActivity: AppCompatActivity(), HillfortListener {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        recyclerView.adapter?.notifyDataSetChanged()
+        //recyclerView.adapter?.notifyDataSetChanged()
+        loadHillforts()
         super.onActivityResult(requestCode, resultCode, data)
     }
-
-
+    private fun loadHillforts() {
+        showHillforts(app.hillforts.findAll())
+    }
+    fun showHillforts (hillforts: List<HillfortModel>) {
+        recyclerView.adapter = HillfortsAdapter(hillforts, this)
+        recyclerView.adapter?.notifyDataSetChanged()
+    }
 }
