@@ -9,10 +9,13 @@ import org.wit.hillforts.helpers.exists
 import org.wit.hillforts.helpers.read
 import org.wit.hillforts.helpers.write
 import java.util.*
+import kotlin.collections.ArrayList
 
-val JSON_FILE = "hillforts.json"
+val HILLFORTS_FILE = "hillforts.json"
+//val USERS_FILE = "users.json"
 val gsonBuilder = GsonBuilder().setPrettyPrinting().create()
-val listType = object : TypeToken<ArrayList<HillfortModel>>() {}.type
+val listTypeHillfort = object : TypeToken<ArrayList<HillfortModel>>() {}.type
+//val listTypeUser = object  : TypeToken<ArrayList<UserModel>>() {}.type
 
 fun generateRandomId(): Long {
     return Random().nextLong()
@@ -20,13 +23,15 @@ fun generateRandomId(): Long {
 
 class HillfortJSONStore: HillfortStore, AnkoLogger {
     val context: Context
+    var users = mutableListOf<UserModel>()
     var hillforts = mutableListOf<HillfortModel>()
 
     constructor (context: Context) {
         this.context = context
-        if (exists(context, JSON_FILE)) {
-            deserialize()
+        if (exists(context, HILLFORTS_FILE)) {
+            deserialize(HILLFORTS_FILE)
         }
+
     }
 
     override fun findAll(): MutableList<HillfortModel> {
@@ -36,12 +41,22 @@ class HillfortJSONStore: HillfortStore, AnkoLogger {
     override fun create(hillfort: HillfortModel) {
         hillfort.id = generateRandomId()
         hillforts.add(hillfort)
-        serialize()
+        serialize(HILLFORTS_FILE)
     }
     override fun delete(hillfort: HillfortModel) {
         //var foundHillfort: HillfortModel? = hillforts.find { p -> p.id == hillfort.id }
         hillforts.remove(hillfort)
-        serialize()
+        serialize(HILLFORTS_FILE)
+    }
+
+    override fun login(email: String, password: String) : UserModel {
+        return UserModel()
+    }
+
+    override fun register(user: UserModel) {
+        user.id = generateRandomId()
+        users.add(user)
+        serialize(HILLFORTS_FILE)
     }
 
     override fun update(hillfort: HillfortModel) {
@@ -54,16 +69,16 @@ class HillfortJSONStore: HillfortStore, AnkoLogger {
             foundHillfort.lng = hillfort.lng
             foundHillfort.zoom = hillfort.zoom
         }
-        serialize()
+        serialize(HILLFORTS_FILE)
     }
 
-    private fun serialize() {
-        val jsonString = gsonBuilder.toJson(hillforts, listType)
-        write(context, JSON_FILE, jsonString)
+    private fun serialize(fileType: String) {
+        val jsonString = gsonBuilder.toJson(hillforts, listTypeHillfort)
+        write(context, fileType, jsonString)
     }
 
-    private fun deserialize() {
-        val jsonString = read(context, JSON_FILE)
-        hillforts = Gson().fromJson(jsonString, listType)
+    private fun deserialize(fileType: String) {
+        val jsonString = read(context, fileType)
+        hillforts = Gson().fromJson(jsonString, listTypeHillfort)
     }
 }

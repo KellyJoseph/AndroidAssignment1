@@ -33,6 +33,10 @@
         <activity
             android:name=".activities.MapActivity"
             android:label="@string/title_activity_map"></activity>
+        <activity
+            android:name=".activities.LoginActivity"></activity>
+        <activity
+            android:name=".activities.RegisterActivity"></activity>
         <activity android:name=".activities.HillfortActivity"></activity>
         <activity android:name=".activities.HillfortListActivity">
         </activity>

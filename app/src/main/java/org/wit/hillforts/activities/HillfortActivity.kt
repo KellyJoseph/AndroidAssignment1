@@ -33,8 +33,6 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
         info("Hillfort Activity started..")
         var edit = false
 
-
-
         app = application as MainApp
 
         if (intent.hasExtra("hillfort_edit")) {
@@ -122,5 +120,4 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
             }
         }
     }
-
 }

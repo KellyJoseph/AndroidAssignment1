@@ -11,6 +11,9 @@ internal fun getId(): Long {
 
 class HillfortkMemStore : HillfortStore, AnkoLogger {
 
+    var users = mutableListOf<UserModel>()
+
+
     val hillforts = ArrayList<HillfortModel>()
 
     override fun findAll(): List<HillfortModel> {
@@ -24,6 +27,20 @@ class HillfortkMemStore : HillfortStore, AnkoLogger {
     override fun delete(hillfort: HillfortModel) {
         //var foundHillfort: HillfortModel? = hillforts.find { p -> p.id == hillfort.id }
         hillforts.remove(hillfort)
+    }
+    override fun register(user: UserModel) {
+        user.id = generateRandomId()
+        users.add(user)
+    }
+
+
+    
+    override fun login(email: String, password: String) : UserModel? {
+        var foundUser:  UserModel? = users.find { p -> p.email == email}
+        // if (foundUser != null && foundUser.password == password) {
+        //     return foundUser
+        // }
+        return foundUser
     }
 
     override fun update(hillfort: HillfortModel) {
