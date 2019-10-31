@@ -63,6 +63,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
         btnAdd.setOnClickListener() {
             hillfort.name= hillfortName.text.toString()
             hillfort.description = description.text.toString()
+            hillfort.authorId = app.loggedInUser!!.id
             if (hillfort.name.isEmpty()) {
                 toast(R.string.enter_hillfort_name)
             } else {

@@ -10,13 +10,16 @@ import kotlinx.android.synthetic.main.activity_hillforts_list.*
 import kotlinx.android.synthetic.main.hillfort_card_xml.view.*
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.startActivityForResult
+import org.jetbrains.anko.toast
 import org.wit.hillforts.R
 import org.wit.hillforts.main.MainApp
 import org.wit.hillforts.models.HillfortModel
+import org.wit.hillforts.models.UserModel
 
 class HillfortListActivity: AppCompatActivity(), HillfortListener {
 
     lateinit var app: MainApp
+    lateinit var loggedInUser: UserModel
     //val IMAGE_REQUEST = 1
 
     //create the activity. bundle is what activity data is saved in if closed, used to re-create a
@@ -25,6 +28,10 @@ class HillfortListActivity: AppCompatActivity(), HillfortListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hillforts_list)
         //as specifies an alias for an import or a type cast
+        val data = intent.extras
+        val user = data!!.getParcelable<UserModel>("user")
+        toast("welcome ${user?.firstName}")
+        loggedInUser = user!!
         app = application as MainApp
 
 
@@ -33,7 +40,8 @@ class HillfortListActivity: AppCompatActivity(), HillfortListener {
         loadHillforts()
         //recyclerView.adapter = HillfortsAdapter(app.hillforts)
         //recyclerView.adapter = HillfortsAdapter(app.hillforts.findAll())
-        recyclerView.adapter = HillfortsAdapter(app.hillforts.findAll(), this)
+        //recyclerView.adapter = HillfortsAdapter(app.hillforts.findAll(), this)
+        recyclerView.adapter = HillfortsAdapter(app.hillforts.findAllByUser(loggedInUser), this)
 
         //toolbar is a widget in ativity_hillforts_list
         toolbar.title = title
@@ -65,11 +73,15 @@ class HillfortListActivity: AppCompatActivity(), HillfortListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         //recyclerView.adapter?.notifyDataSetChanged()
-        loadHillforts()
+        //loadHillforts()
+        loadHillfortsByUser()
         super.onActivityResult(requestCode, resultCode, data)
     }
     private fun loadHillforts() {
         showHillforts(app.hillforts.findAll())
+    }
+    private fun loadHillfortsByUser() {
+        showHillforts(app.hillforts.findAllByUser(loggedInUser))
     }
     fun showHillforts (hillforts: List<HillfortModel>) {
         recyclerView.adapter = HillfortsAdapter(hillforts, this)

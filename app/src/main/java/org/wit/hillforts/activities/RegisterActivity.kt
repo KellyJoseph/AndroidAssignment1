@@ -30,10 +30,10 @@ class RegisterActivity: AppCompatActivity() {
             user.password = registerPassword.text.toString()
             if (user.firstName.isNotEmpty() && user.lastName.isNotEmpty() && user.email.isNotEmpty() &&
                 user.password.isNotEmpty()) {
-                toast("user info entered")
                 app.users.register(user)
-                toast("user info entered")
-                startActivity(Intent(this, HillfortListActivity::class.java))
+                toast("Log in to proceed")
+                finish()
+                //startActivity(Intent(this, HillfortListActivity::class.java))
 
             } else {
                 toast("An email address and password are required")

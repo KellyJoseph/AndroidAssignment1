@@ -31,11 +31,22 @@ class HillfortJSONStore: HillfortStore, AnkoLogger {
         if (exists(context, HILLFORTS_FILE)) {
             deserialize(HILLFORTS_FILE)
         }
-
     }
 
     override fun findAll(): MutableList<HillfortModel> {
         return hillforts
+    }
+
+    override fun findAllByUser(user: UserModel): MutableList<HillfortModel> {
+        //var filteredHillforts = hillforts.filter{ it.authorId == user.id }
+        var userHillforts = hillforts.retainAll { (it.authorId == user.id) }
+        val userHillfortList = mutableListOf<HillfortModel>()
+        hillforts.forEach {
+            if(it.authorId == user.id) {
+                userHillfortList.add(it)
+            }
+        }
+        return userHillfortList
     }
 
     override fun create(hillfort: HillfortModel) {

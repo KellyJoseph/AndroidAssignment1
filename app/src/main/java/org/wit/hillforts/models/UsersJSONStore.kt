@@ -23,6 +23,7 @@ class UsersJSONStore: UserStore, AnkoLogger {
     val context: Context
     var users = mutableListOf<UserModel>()
 
+
     constructor (context: Context) {
         this.context = context
         if (exists(context, USERS_FILE)) {
@@ -33,6 +34,7 @@ class UsersJSONStore: UserStore, AnkoLogger {
     override fun findAll(): MutableList<UserModel> {
         return users
     }
+
 
     override fun create(user: UserModel) {
         user.id = generateRandomIdUsers()
