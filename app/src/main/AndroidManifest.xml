@@ -37,7 +37,12 @@
             android:name=".activities.LoginActivity"></activity>
         <activity
             android:name=".activities.RegisterActivity"></activity>
-        <activity android:name=".activities.HillfortActivity"></activity>
+
+        <activity
+            android:name=".activities.HillfortActivity"
+            android:parentActivityName="org.wit.hillforts.activities.HillfortListActivity" >
+        </activity>
+
         <activity android:name=".activities.HillfortListActivity">
         </activity>
         <activity android:name=".activities.SplashActivity">
