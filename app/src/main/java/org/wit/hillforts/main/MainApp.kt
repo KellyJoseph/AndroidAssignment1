@@ -11,7 +11,7 @@ class MainApp: Application(), AnkoLogger {
     //val hillforts = HillfortkMemStore()
     lateinit var hillforts: HillfortStore
     lateinit var users: UserStore
-    var loggedInUser: UserModel? = null
+    lateinit var loggedInUser: UserModel
 
     override fun onCreate() {
         super.onCreate()

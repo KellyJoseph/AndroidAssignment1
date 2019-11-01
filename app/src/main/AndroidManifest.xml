@@ -35,16 +35,23 @@
             android:label="@string/title_activity_map"></activity>
         <activity
             android:name=".activities.LoginActivity"></activity>
-        <activity
-            android:name=".activities.RegisterActivity"></activity>
 
         <activity
             android:name=".activities.HillfortActivity"
-            android:parentActivityName="org.wit.hillforts.activities.HillfortListActivity" >
+            android:parentActivityName=".activities.HillfortListActivity">
         </activity>
 
-        <activity android:name=".activities.HillfortListActivity">
+        <activity
+            android:name=".activities.UserActivity"
+            android:parentActivityName=".activities.HillfortListActivity">
         </activity>
+
+        <activity android:name=".activities.HillfortListActivity"></activity>
+        <activity
+            android:name=".activities.RegisterActivity"
+            android:parentActivityName="org.wit.hillforts.activities.LoginActivity" >
+        </activity>
+
         <activity android:name=".activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

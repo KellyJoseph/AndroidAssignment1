@@ -10,7 +10,7 @@ import org.wit.hillforts.helpers.readImageFromPath
 import org.wit.hillforts.models.HillfortModel
 
 interface HillfortListener {
-    fun onHillfortClick(placemark: HillfortModel)
+    fun onHillfortClick(hillfort: HillfortModel)
 }
 
 class HillfortsAdapter constructor(
@@ -21,7 +21,7 @@ class HillfortsAdapter constructor(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
         return MainHolder(
-            LayoutInflater.from(parent?.context).inflate(
+            LayoutInflater.from(parent.context).inflate(
                 R.layout.hillfort_card_xml,
                 parent,
                 false

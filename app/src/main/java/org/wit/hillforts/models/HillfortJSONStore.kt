@@ -12,10 +12,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 val HILLFORTS_FILE = "hillforts.json"
-//val USERS_FILE = "users.json"
 val gsonBuilder = GsonBuilder().setPrettyPrinting().create()
 val listTypeHillfort = object : TypeToken<ArrayList<HillfortModel>>() {}.type
-//val listTypeUser = object  : TypeToken<ArrayList<UserModel>>() {}.type
 
 fun generateRandomId(): Long {
     return Random().nextLong()
@@ -39,7 +37,7 @@ class HillfortJSONStore: HillfortStore, AnkoLogger {
 
     override fun findAllByUser(user: UserModel): MutableList<HillfortModel> {
         //var filteredHillforts = hillforts.filter{ it.authorId == user.id }
-        var userHillforts = hillforts.retainAll { (it.authorId == user.id) }
+        //var userHillforts = hillforts.retainAll { (it.authorId == user.id) }
         val userHillfortList = mutableListOf<HillfortModel>()
         hillforts.forEach {
             if(it.authorId == user.id) {

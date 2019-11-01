@@ -19,7 +19,7 @@ import org.wit.hillforts.models.UserModel
 class HillfortListActivity: AppCompatActivity(), HillfortListener {
 
     lateinit var app: MainApp
-    lateinit var loggedInUser: UserModel
+    //lateinit var loggedInUser: UserModel
     //val IMAGE_REQUEST = 1
 
     //create the activity. bundle is what activity data is saved in if closed, used to re-create a
@@ -31,8 +31,9 @@ class HillfortListActivity: AppCompatActivity(), HillfortListener {
         val data = intent.extras
         val user = data!!.getParcelable<UserModel>("user")
         toast("welcome ${user?.firstName}")
-        loggedInUser = user!!
+        //loggedInUser = user!!
         app = application as MainApp
+        //app.loggedInUser = user!!
 
 
         val layoutManager = LinearLayoutManager(this)
@@ -41,7 +42,7 @@ class HillfortListActivity: AppCompatActivity(), HillfortListener {
         //recyclerView.adapter = HillfortsAdapter(app.hillforts)
         //recyclerView.adapter = HillfortsAdapter(app.hillforts.findAll())
         //recyclerView.adapter = HillfortsAdapter(app.hillforts.findAll(), this)
-        recyclerView.adapter = HillfortsAdapter(app.hillforts.findAllByUser(loggedInUser), this)
+        recyclerView.adapter = HillfortsAdapter(app.hillforts.findAllByUser(app.loggedInUser), this)
 
         //toolbar is a widget in ativity_hillforts_list
         toolbar.title = title
@@ -60,6 +61,8 @@ class HillfortListActivity: AppCompatActivity(), HillfortListener {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.item_add -> startActivityForResult<HillfortActivity>(0)
+            R.id.settings -> startActivityForResult<UserActivity>(0)
+
         }
         return super.onOptionsItemSelected(item)
     }
@@ -81,7 +84,7 @@ class HillfortListActivity: AppCompatActivity(), HillfortListener {
         showHillforts(app.hillforts.findAll())
     }
     private fun loadHillfortsByUser() {
-        showHillforts(app.hillforts.findAllByUser(loggedInUser))
+        showHillforts(app.hillforts.findAllByUser(app.loggedInUser))
     }
     fun showHillforts (hillforts: List<HillfortModel>) {
         recyclerView.adapter = HillfortsAdapter(hillforts, this)
