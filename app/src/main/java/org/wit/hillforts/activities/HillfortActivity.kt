@@ -109,6 +109,21 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
         return super.onOptionsItemSelected(item)
     }
 
+    fun onCheckboxClicked(view: View) {
+        if (view is CheckBox) {
+            val checked: Boolean = view.isChecked
+            when (view.id) {
+                R.id.checkbox -> {
+                    if (checked) {
+                        hillfort.visited = true
+                        app.hillforts.update(hillfort.copy())
+                    }
+                }
+            }
+        }
+    }
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
