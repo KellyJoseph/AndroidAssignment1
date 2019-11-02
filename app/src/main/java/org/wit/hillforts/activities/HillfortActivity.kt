@@ -67,6 +67,26 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
                 LOCATION_REQUEST)
         }
 
+        btnAdd.setOnClickListener() {
+            hillfort.name= hillfortName.text.toString()
+            hillfort.description = description.text.toString()
+            hillfort.authorId = app.loggedInUser!!.id
+            hillfort.visited = checkbox.isChecked
+            if (hillfort.name.isEmpty()) {
+                toast(R.string.enter_hillfort_name)
+            } else {
+                if (edit) {
+                    app.hillforts.update(hillfort.copy())
+                } else {
+                    app.hillforts.create(hillfort.copy())
+                }
+            }
+            info("add Button Pressed: $hillfortName")
+            setResult(AppCompatActivity.RESULT_OK)
+            finish()
+        }
+
+
         chooseImage.setOnClickListener {
             showImagePicker(this, IMAGE_REQUEST)
         }
@@ -88,21 +108,6 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
         }
         return super.onOptionsItemSelected(item)
     }
-
-    fun onCheckboxClicked(view: View) {
-        if (view is CheckBox) {
-            val checked: Boolean = view.isChecked
-            when (view.id) {
-                R.id.checkbox -> {
-                    if (checked) {
-                        hillfort.visited = true
-                        app.hillforts.update(hillfort.copy())
-                    }
-                }
-            }
-        }
-    }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
