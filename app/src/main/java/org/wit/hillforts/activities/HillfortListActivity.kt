@@ -32,15 +32,11 @@ class HillfortListActivity: AppCompatActivity(), HillfortListener {
         var visitedHillforts = app.hillforts.findVisitedHillfortsByUser(app.loggedInUser)
         app.visitedHillforts = visitedHillforts
 
-
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
         loadHillforts()
         recyclerView.adapter = HillfortsAdapter(app.hillforts.findAllByUser(app.loggedInUser), this)
-
-        //toolbar is a widget in ativity_hillforts_list
         toolbar.title = title
-        //set a toolbar to act as an action bar in this activity
         setSupportActionBar(toolbar)
     }
 
@@ -56,7 +52,7 @@ class HillfortListActivity: AppCompatActivity(), HillfortListener {
         when (item?.itemId) {
             R.id.item_add -> startActivityForResult<HillfortActivity>(0)
             R.id.settings -> startActivityForResult<UserActivity>(0)
-
+            R.id.logout -> startActivity(Intent(this, LoginActivity::class.java))
         }
         return super.onOptionsItemSelected(item)
     }

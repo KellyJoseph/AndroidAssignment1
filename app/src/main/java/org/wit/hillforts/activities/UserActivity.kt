@@ -24,7 +24,7 @@ class UserActivity: AppCompatActivity(), AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user)
-        settingsMenu.title = "Settings"
+        settingsMenu.title = "Settings"g
         setSupportActionBar(settingsMenu)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
