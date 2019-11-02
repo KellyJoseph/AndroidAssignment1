@@ -47,6 +47,16 @@ class HillfortJSONStore: HillfortStore, AnkoLogger {
         return userHillfortList
     }
 
+    override fun findVisitedHillfortsByUser(user: UserModel): MutableList<HillfortModel> {
+        val visitedUserHillfortList = mutableListOf<HillfortModel>()
+        hillforts.forEach {
+            if(it.authorId == user.id && it.visited == true) {
+                visitedUserHillfortList.add(it)
+            }
+        }
+        return visitedUserHillfortList
+    }
+
     override fun create(hillfort: HillfortModel) {
         hillfort.id = generateRandomId()
         hillforts.add(hillfort)

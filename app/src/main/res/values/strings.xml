@@ -28,7 +28,8 @@
     <string name="button_editUser">Submit</string>
     <string name="menu_cancelHillfort">Cancel</string>
     <string name="menu_cancelSetting">Cancel</string>
-
-
+    <string name="users_visited_hillforts"></string>
+    <string name="users_recorded_hillforts"></string>
+    <string name="total_hillforts"></string>
 
 </resources>

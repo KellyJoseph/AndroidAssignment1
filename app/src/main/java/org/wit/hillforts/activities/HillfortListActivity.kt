@@ -19,29 +19,23 @@ import org.wit.hillforts.models.UserModel
 class HillfortListActivity: AppCompatActivity(), HillfortListener {
 
     lateinit var app: MainApp
-    //lateinit var loggedInUser: UserModel
-    //val IMAGE_REQUEST = 1
 
     //create the activity. bundle is what activity data is saved in if closed, used to re-create a
     //closed activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hillforts_list)
-        //as specifies an alias for an import or a type cast
         val data = intent.extras
         val user = data!!.getParcelable<UserModel>("user")
         toast("welcome ${user?.firstName}")
-        //loggedInUser = user!!
         app = application as MainApp
-        //app.loggedInUser = user!!
+        var visitedHillforts = app.hillforts.findVisitedHillfortsByUser(app.loggedInUser)
+        app.visitedHillforts = visitedHillforts
 
 
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
         loadHillforts()
-        //recyclerView.adapter = HillfortsAdapter(app.hillforts)
-        //recyclerView.adapter = HillfortsAdapter(app.hillforts.findAll())
-        //recyclerView.adapter = HillfortsAdapter(app.hillforts.findAll(), this)
         recyclerView.adapter = HillfortsAdapter(app.hillforts.findAllByUser(app.loggedInUser), this)
 
         //toolbar is a widget in ativity_hillforts_list

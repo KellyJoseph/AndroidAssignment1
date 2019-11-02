@@ -37,6 +37,13 @@ class UserActivity: AppCompatActivity(), AnkoLogger {
         editLastName.setText(user.lastName)
         editPassword.setText(user.password)
         editEmail.setText(user.email)
+        var noVisited = app.hillforts.findVisitedHillfortsByUser(app.loggedInUser).size
+        var noRecorded = app.hillforts.findAllByUser(app.loggedInUser).size
+        var total = app.hillforts.findAll().size
+        userVisited.text = "Hillforts visited: $noVisited"
+        userRecorded.text = "Hillforts recorded: $noRecorded"
+        totalNumber.text = "Total hillforts: $total"
+
 
         editUserSubmit.setOnClickListener() {
             user.firstName= editFirstName.text.toString()

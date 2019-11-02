@@ -12,6 +12,7 @@ class MainApp: Application(), AnkoLogger {
     lateinit var hillforts: HillfortStore
     lateinit var users: UserStore
     lateinit var loggedInUser: UserModel
+    lateinit var visitedHillforts: List<HillfortModel>
 
     override fun onCreate() {
         super.onCreate()
