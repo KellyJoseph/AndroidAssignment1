@@ -24,7 +24,7 @@ class UserActivity: AppCompatActivity(), AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user)
-        settingsMenu.title = "Settings"g
+        settingsMenu.title = "Settings"
         setSupportActionBar(settingsMenu)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -56,12 +56,10 @@ class UserActivity: AppCompatActivity(), AnkoLogger {
             } else {
                 app.users.update(user.copy())
             }
-
             info("user info updated")
             setResult(AppCompatActivity.RESULT_OK)
             finish()
         }
-
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.user_menu, menu)
@@ -75,7 +73,4 @@ class UserActivity: AppCompatActivity(), AnkoLogger {
         }
         return super.onOptionsItemSelected(item)
     }
-
-
-
 }

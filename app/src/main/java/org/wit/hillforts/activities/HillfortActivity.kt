@@ -1,12 +1,16 @@
 package org.wit.hillforts.activities
 
+import android.app.DatePickerDialog
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.CheckBox
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import kotlinx.android.synthetic.main.activity_hillfort.*
 import org.wit.hillforts.R
 import org.jetbrains.anko.AnkoLogger
@@ -19,10 +23,13 @@ import org.wit.hillforts.helpers.showImagePicker
 import org.wit.hillforts.main.MainApp
 import org.wit.hillforts.models.HillfortModel
 import org.wit.hillforts.models.Location
+import java.util.*
+
 
 class HillfortActivity : AppCompatActivity(), AnkoLogger {
 
     var hillfort = HillfortModel()
+    var dateVisited = String()
     lateinit var app: MainApp
     val IMAGE_REQUEST = 1
     val LOCATION_REQUEST = 2
@@ -34,9 +41,9 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
         setSupportActionBar(toolbarAdd)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+
         info("Hillfort Activity started..")
         var edit = false
-
         app = application as MainApp
 
         if (intent.hasExtra("hillfort_edit")) {
@@ -72,6 +79,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
             hillfort.description = description.text.toString()
             hillfort.authorId = app.loggedInUser!!.id
             hillfort.visited = checkbox.isChecked
+            hillfort.visitedDate = dateVisited
             if (hillfort.name.isEmpty()) {
                 toast(R.string.enter_hillfort_name)
             } else {
@@ -121,6 +129,20 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
                 }
             }
         }
+    }
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun clickDataPicker(view: View) {
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+
+        val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            // Display Selected date in Toast
+            Toast.makeText(this, """$dayOfMonth - ${monthOfYear + 1} - $year""", Toast.LENGTH_LONG).show()
+            dateVisited = "$day" + "/" + "$month" + "/" + "$year"
+        }, year, month, day)
+        dpd.show()
     }
 
 
