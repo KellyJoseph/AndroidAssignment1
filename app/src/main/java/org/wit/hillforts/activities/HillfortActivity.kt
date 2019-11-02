@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.CheckBox
 import kotlinx.android.synthetic.main.activity_hillfort.*
 import org.wit.hillforts.R
 import org.jetbrains.anko.AnkoLogger
@@ -42,6 +44,9 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
             hillfort = intent.extras?.getParcelable<HillfortModel>("hillfort_edit")!!
             hillfortName.setText(hillfort.name)
             description.setText(hillfort.description)
+            if (hillfort.visited == true) {
+                checkbox.setChecked(true);
+            }
             hillfortImage.setImageBitmap(readImageFromPath(this, hillfort.image))
             if (hillfort.image != null) {
                 chooseImage.setText(R.string.change_hillfort_image)
@@ -61,25 +66,6 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
             startActivityForResult(intentFor<MapActivity>().putExtra("location", location),
                 LOCATION_REQUEST)
         }
-
-        btnAdd.setOnClickListener() {
-            hillfort.name= hillfortName.text.toString()
-            hillfort.description = description.text.toString()
-            hillfort.authorId = app.loggedInUser!!.id
-            if (hillfort.name.isEmpty()) {
-                toast(R.string.enter_hillfort_name)
-            } else {
-                if (edit) {
-                    app.hillforts.update(hillfort.copy())
-                } else {
-                    app.hillforts.create(hillfort.copy())
-                }
-            }
-            info("add Button Pressed: $hillfortName")
-            setResult(AppCompatActivity.RESULT_OK)
-            finish()
-        }
-
 
         chooseImage.setOnClickListener {
             showImagePicker(this, IMAGE_REQUEST)
@@ -102,6 +88,21 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    fun onCheckboxClicked(view: View) {
+        if (view is CheckBox) {
+            val checked: Boolean = view.isChecked
+            when (view.id) {
+                R.id.checkbox -> {
+                    if (checked) {
+                        hillfort.visited = true
+                        app.hillforts.update(hillfort.copy())
+                    }
+                }
+            }
+        }
+    }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
