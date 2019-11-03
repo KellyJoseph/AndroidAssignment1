@@ -118,16 +118,30 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp" />
 
+                <TextView
+                    android:id="@+id/visitedDateDisplay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:inputType="text"
+                    android:maxLength="25"
+                    android:maxLines="2"
+                    android:padding="8dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14sp" />
+
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/dateButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:text="Open Date Picker"
+                    android:background="@color/colorAccent"
+                    android:text="Select Visited Date"
                     android:onClick="clickDataPicker"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintTop_toBottomOf="@+id/visitedDateDisplay" />
 
             </LinearLayout>
         </ScrollView>

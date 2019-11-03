@@ -51,6 +51,9 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
             hillfort = intent.extras?.getParcelable<HillfortModel>("hillfort_edit")!!
             hillfortName.setText(hillfort.name)
             description.setText(hillfort.description)
+            var date = hillfort.visitedDate
+            var dateText = "$date last visited"
+            visitedDateDisplay.setText(dateText)
             if (hillfort.visited == true) {
                 checkbox.setChecked(true);
             }
@@ -138,9 +141,8 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
         val day = c.get(Calendar.DAY_OF_MONTH)
 
         val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-            // Display Selected date in Toast
             Toast.makeText(this, """$dayOfMonth - ${monthOfYear + 1} - $year""", Toast.LENGTH_LONG).show()
-            dateVisited = "$day" + "/" + "$month" + "/" + "$year"
+            dateVisited = "$dayOfMonth" + "/" + "$monthOfYear" + "/" + "$year"
         }, year, month, day)
         dpd.show()
     }
