@@ -62,13 +62,13 @@ data class UserModel(var id: Long = 0,
 All features in the grading rubrick have been implemented except for the unified json and navigation drawers.
 The up button is not functioning correctly. It returns users to the log in screen rather than the parent activity.
 
-[datePicker]: ./datePicker.png
-[login]: ./login.png
-[map]: ./map.png
-[multipleImages]: ./multipleImages.png
-[nameDescriptionNotes]: ./nameDescriptionNotes.png
-[register]: ./register.png
-[list]: ./list.png
-[settings1]: ./settings1.png
-[settings2]: ./settings2.png
+[datePicker]: ./readme/datePicker.png
+[login]: ./readme/login.png
+[map]: ./readme/map.png
+[multipleImages]: ./readme/multipleImages.png
+[nameDescriptionNotes]: ./readme/nameDescriptionNotes.png
+[register]: ./readme/register.png
+[list]: ./readme/list.png
+[settings1]: ./readme/settings1.png
+[settings2]: ./readme/settings2.png
 
