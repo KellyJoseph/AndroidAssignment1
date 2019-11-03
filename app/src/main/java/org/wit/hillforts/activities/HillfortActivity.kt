@@ -51,6 +51,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
             hillfort = intent.extras?.getParcelable<HillfortModel>("hillfort_edit")!!
             hillfortName.setText(hillfort.name)
             description.setText(hillfort.description)
+            notes.setText(hillfort.notes)
             var date = hillfort.visitedDate
             var dateText = "$date last visited"
             visitedDateDisplay.setText(dateText)
@@ -109,6 +110,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
         btnAdd.setOnClickListener() {
             hillfort.name= hillfortName.text.toString()
             hillfort.description = description.text.toString()
+            hillfort.notes = notes.text.toString()
             hillfort.authorId = app.loggedInUser!!.id
             hillfort.visited = checkbox.isChecked
             hillfort.visitedDate = dateVisited

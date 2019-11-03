@@ -9,7 +9,7 @@ import kotlin.collections.ArrayList
 data class HillfortModel(var id: Long = 0,
                          var name: String = "",
                          var description: String = "",
-                         //var image: String = "",
+                         var notes: String = "",
                          var images: ArrayList<String> = arrayListOf(),
                          var lat: Double = 0.0,
                          var lng: Double = 0.0,
