@@ -3,12 +3,14 @@ package org.wit.hillforts.models
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import java.util.*
+import kotlin.collections.ArrayList
 
 @Parcelize
 data class HillfortModel(var id: Long = 0,
                          var name: String = "",
                          var description: String = "",
-                         var image: String = "",
+                         //var image: String = "",
+                         var images: ArrayList<String> = arrayListOf(),
                          var lat: Double = 0.0,
                          var lng: Double = 0.0,
                          var zoom: Float = 0f,

@@ -57,11 +57,24 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
             if (hillfort.visited == true) {
                 checkbox.setChecked(true);
             }
-            hillfortImage.setImageBitmap(readImageFromPath(this, hillfort.image))
-            if (hillfort.image != null) {
-                chooseImage.setText(R.string.change_hillfort_image)
-            }
-            hillfortImage.setImageBitmap(readImageFromPath(this, hillfort.image))
+            //hillfortImage.setImageBitmap(readImageFromPath(this, hillfort.image))
+            //if (hillfort.image != null) {
+            //    chooseImage.setText(R.string.change_hillfort_image)
+            //}
+
+            // I'm not proud of this, but it gets the job done for now...
+            if (hillfort.images.size > 0) {
+                    hillfortImage1.setImageBitmap(readImageFromPath(this, hillfort.images[0]))
+                if(hillfort.images.size >= 2) {
+                    hillfortImage2.setImageBitmap(readImageFromPath(this, hillfort.images[1]))
+                }
+                if (hillfort.images.size >= 3) {
+                    hillfortImage3.setImageBitmap(readImageFromPath(this, hillfort.images[2]))
+                }
+                if (hillfort.images.size >= 4) {
+                    hillfortImage4.setImageBitmap(readImageFromPath(this, hillfort.images[3]))
+                }
+                }
             btnAdd.setText(R.string.save_hillfort)
         }
 
@@ -75,6 +88,22 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
             }
             startActivityForResult(intentFor<MapActivity>().putExtra("location", location),
                 LOCATION_REQUEST)
+        }
+        deleteImage1.setOnClickListener{
+            app.hillforts.deleteImage(hillfort, 0)
+            finish()
+        }
+        deleteImage2.setOnClickListener{
+            app.hillforts.deleteImage(hillfort, 1)
+            finish()
+        }
+        deleteImage3.setOnClickListener{
+            app.hillforts.deleteImage(hillfort, 2)
+            finish()
+        }
+        deleteImage4.setOnClickListener{
+            app.hillforts.deleteImage(hillfort, 3)
+            finish()
         }
 
         btnAdd.setOnClickListener() {
@@ -133,6 +162,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
             }
         }
     }
+    // adapted from https://tutorial.eyehunts.com/android/android-date-picker-dialog-example-kotlin/
     @RequiresApi(Build.VERSION_CODES.N)
     fun clickDataPicker(view: View) {
         val c = Calendar.getInstance()
@@ -153,8 +183,15 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
         when (requestCode) {
             IMAGE_REQUEST -> {
                 if (data != null) {
-                    hillfort.image = data.getData().toString()
-                    hillfortImage.setImageBitmap(readImage(this, resultCode, data))
+                    if (hillfort.images.size > 4) {
+                        toast("You cannot upload more than 4 images")
+                    }
+                    else {
+                        hillfort.images.add(data.getData().toString())
+                        app.hillforts.update(hillfort.copy())
+                        finish()
+                        //hillfortImage1.setImageBitmap(readImage(this, resultCode, data))
+                    }
                     chooseImage.setText(R.string.change_hillfort_image)
                 }
             }

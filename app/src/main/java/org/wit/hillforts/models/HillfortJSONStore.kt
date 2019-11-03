@@ -67,6 +67,15 @@ class HillfortJSONStore: HillfortStore, AnkoLogger {
         hillforts.remove(hillfort)
         serialize(HILLFORTS_FILE)
     }
+    override fun deleteImage(hillfort: HillfortModel, number: Int) {
+        var foundHillfort: HillfortModel? = hillforts.find { p -> p.id == hillfort.id }
+        if (foundHillfort != null) {
+            if (foundHillfort.images.size >= number && foundHillfort.images.isNotEmpty()) {
+                foundHillfort.images.removeAt(number)
+            }
+        }
+        serialize(HILLFORTS_FILE)
+    }
 
     override fun login(email: String, password: String) : UserModel {
         return UserModel()
@@ -85,7 +94,8 @@ class HillfortJSONStore: HillfortStore, AnkoLogger {
             foundHillfort.description = hillfort.description
             foundHillfort.visited = hillfort.visited
             foundHillfort.visitedDate = hillfort.visitedDate
-            foundHillfort.image = hillfort.image
+            //foundHillfort.image = hillfort.image
+            foundHillfort.images = hillfort.images
             foundHillfort.lat = hillfort.lat
             foundHillfort.lng = hillfort.lng
             foundHillfort.zoom = hillfort.zoom
