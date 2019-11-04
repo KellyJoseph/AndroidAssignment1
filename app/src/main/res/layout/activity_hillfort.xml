@@ -81,7 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="visited?"
+                    android:text="@string/checkbox"
                     android:onClick="onCheckboxClicked"/>
 
                 <Button
@@ -92,7 +92,7 @@
                     android:background="@color/colorAccent"
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
-                    android:text="Upload "
+                    android:text="@string/select_hillfort_image"
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp"/>
 
@@ -118,7 +118,7 @@
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp"
                     android:stateListAnimator="@null"
-                    android:text="@string/button_addHillfort"
+                    android:text="@string/button_saveHillfort"
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp" />
 
@@ -140,7 +140,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:background="@color/colorAccent"
-                    android:text="Select Visited Date"
+                    android:text="@string/selectDate"
                     android:onClick="clickDataPicker"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
